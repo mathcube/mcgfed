@@ -39,7 +39,7 @@ sc_federal_leadership = {
 						OR = {
 							has_policy_flag = sc_federal_election
 							has_policy_flag = sc_federal_representation
-							has_policy_flag = sc_federal_might
+							#has_policy_flag = sc_federal_might
 							has_policy_flag = sc_federal_permanent
 						}
 					}
@@ -63,20 +63,20 @@ sc_federal_leadership = {
 		}
 	}
 	
-	option = {
-		name = "sc_federal_might"
-		
-		policy_flags = {
-			sc_federal_might
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_might	
-			}
-		}
-	}
+#	option = {
+#		name = "sc_federal_might"
+#		
+#		policy_flags = {
+#			sc_federal_might
+#		}
+#		
+#		valid = {
+#			custom_tooltip = {
+#				text = "SC_MUST_BE_VOTED_ON"
+#				has_policy_flag = sc_federal_might	
+#			}
+#		}
+#	}
 	
 	option = {
 		name = "sc_federal_permanent"
@@ -496,7 +496,7 @@ sc_federal_health = {
 		
 		modifier = {
 			pop_environment_tolerance = 0.05
-			pop_growth_req_mult = -0.05
+			pop_growth_speed = 0.05
 		}
 		
 		valid = {
@@ -516,7 +516,7 @@ sc_federal_health = {
 		
 		modifier = {
 			pop_environment_tolerance = 0.1
-			pop_growth_req_mult = -0.1
+			pop_growth_speed = 0.1
 		}
 		
 		valid = {
@@ -574,8 +574,8 @@ sc_federal_open = {
 		
 		modifier = {
 			country_trust_growth = 0.25
-			pop_ethic_shift = 0.05
-			pop_xenophobia = -0.1
+			pop_ethics_shift_speed_mult = 0.05
+			pop_ethic_xenophobe_attraction_mult = -0.1
 		}
 		
 		valid = {
@@ -595,8 +595,8 @@ sc_federal_open = {
 		
 		modifier = {
 			country_trust_growth = 0.5
-			pop_ethic_shift = 0.1
-			pop_xenophobia = -0.2
+			pop_ethics_shift_speed_mult = 0.1
+			pop_ethic_xenophobe_attraction_mult = -0.2
 		}
 		
 		valid = {
@@ -651,7 +651,7 @@ sc_federal_rights = {
 		}
 		
 		modifier = {
-			faction_surpression_cost = 0.1
+			faction_influence_mult = 0.05
 			pop_happiness = 0.05
 		}
 		
@@ -671,7 +671,7 @@ sc_federal_rights = {
 		}
 		
 		modifier = {
-			faction_surpression_cost = 0.2
+			faction_influence_mult = 0.1
 			pop_happiness = 0.1
 		}
 		
@@ -739,51 +739,51 @@ sc_federal_propose_law = {
 	}
 }
 
-sc_federal_challenge = {
-
-	potential = {
-		always = no
-		has_federation = yes
-		has_policy_flag = sc_federal_might
-	}
-	
-	allow = {
-		NOT = {
-			has_country_flag = sc_proposal_ongoing
-			has_country_flag = sc_challenge_ongoing
-		}
-	}
-	
-	option = {
-		name = "sc_federal_challenge_no"
-		policy_flags = {
-			sc_federal_challenge_no
-		}
-	}
-	
-	option = {
-		name = "sc_federal_challenge_yes"
-		
-		policy_flags = {
-			sc_federal_challenge_yes
-		}
-		
-		on_enabled = {
-			country_event = {
-					id = sc_election.200
-			}
-			set_policy = {
-				policy = sc_federal_challenge
-				option = sc_federal_challenge_no
-				cooldown = yes
-			}
-		}
-		
-		AI_weight = {
-			modifier = {
-				factor = 0
-				is_ai = yes
-			}
-		}
-	}
-}
+#sc_federal_challenge = {
+#
+#	potential = {
+#		always = no
+#		has_federation = yes
+#		has_policy_flag = sc_federal_might
+#	}
+#	
+#	allow = {
+#		NOT = {
+#			has_country_flag = sc_proposal_ongoing
+#			has_country_flag = sc_challenge_ongoing
+#		}
+#	}
+#	
+#	option = {
+#		name = "sc_federal_challenge_no"
+#		policy_flags = {
+#			sc_federal_challenge_no
+#		}
+#	}
+#	
+#	option = {
+#		name = "sc_federal_challenge_yes"
+#		
+#		policy_flags = {
+#			sc_federal_challenge_yes
+#		}
+#		
+#		on_enabled = {
+#			country_event = {
+#					id = sc_election.200
+#			}
+#			set_policy = {
+#				policy = sc_federal_challenge
+#				option = sc_federal_challenge_no
+#				cooldown = yes
+#			}
+#		}
+#		
+#		AI_weight = {
+#			modifier = {
+#				factor = 0
+#				is_ai = yes
+#			}
+#		}
+#	}
+#}

@@ -34,7 +34,7 @@ sc_effect_pass_proposal = {
 				}
 			}
 			event_target:sc_federation_leader = {
-				remove_country_flag = sc_president_might
+				#remove_country_flag = sc_president_might
 				remove_country_flag = sc_president_permanent
 				remove_country_flag = sc_president_representation
 				set_timed_country_flag = {
@@ -43,27 +43,27 @@ sc_effect_pass_proposal = {
 				}
 			}
 		}
-		sc_proposal_leadership_might = {
-			every_country = {
-				limit = {
-					OR = {
-						is_in_federation_with = ROOT
-						is_country = ROOT
-					}
-				}
-				set_policy = {
-					policy = sc_federal_leadership
-					option = sc_federal_might
-					cooldown = no
-				}
-			}
-			event_target:sc_federation_leader = {
-				remove_country_flag = sc_president_election
-				remove_country_flag = sc_president_permanent
-				remove_country_flag = sc_president_representation
-				set_country_flag = sc_president_might
-			}
-		}
+#		sc_proposal_leadership_might = {
+#			every_country = {
+#				limit = {
+#					OR = {
+#						is_in_federation_with = ROOT
+#						is_country = ROOT
+#					}
+#				}
+#				set_policy = {
+#					policy = sc_federal_leadership
+#					option = sc_federal_might
+#					cooldown = no
+#				}
+#			}
+#			event_target:sc_federation_leader = {
+#				remove_country_flag = sc_president_election
+#				remove_country_flag = sc_president_permanent
+#				remove_country_flag = sc_president_representation
+#				set_country_flag = sc_president_might
+#			}
+#		}
 		sc_proposal_leadership_permanent = {
 			every_country = {
 				limit = {
@@ -80,7 +80,7 @@ sc_effect_pass_proposal = {
 			}
 			event_target:sc_federation_leader = {
 				remove_country_flag = sc_president_election
-				remove_country_flag = sc_president_might
+				#remove_country_flag = sc_president_might
 				remove_country_flag = sc_president_representation
 				set_country_flag = sc_president_permanent
 			}
@@ -101,7 +101,7 @@ sc_effect_pass_proposal = {
 			}
 			event_target:sc_federation_leader = {
 				remove_country_flag = sc_president_election
-				remove_country_flag = sc_president_might
+				#remove_country_flag = sc_president_might
 				remove_country_flag = sc_president_permanent
 				set_timed_country_flag = {
 					flag = sc_president_representation
@@ -513,21 +513,21 @@ sc_effect_sync_laws = {
 				}
 			}
 		}
-		sc_federal_might = {
-			every_country = {
-				limit = {
-					is_in_federation_with = ROOT
-					NOT = {
-						is_country = ROOT
-					}
-				}
-				set_policy = {
-					policy = sc_federal_leadership
-					option = sc_federal_might
-					cooldown = no
-				}
-			}
-		}
+#		sc_federal_might = {
+#			every_country = {
+#				limit = {
+#					is_in_federation_with = ROOT
+#					NOT = {
+#						is_country = ROOT
+#					}
+#				}
+#				set_policy = {
+#					policy = sc_federal_leadership
+#					option = sc_federal_might
+#					cooldown = no
+#				}
+#			}
+#		}
 		sc_federal_permanent = {
 			every_country = {
 				limit = {

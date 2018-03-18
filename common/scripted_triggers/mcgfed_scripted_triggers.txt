@@ -225,10 +225,10 @@ sc_trigger_diff_laws = {
 				PREV = { has_policy_flag = sc_federal_election }
 				NOT = { has_policy_flag = sc_federal_election }
 			}
-			AND = {
-				PREV = { has_policy_flag = sc_federal_might }
-				NOT = { has_policy_flag = sc_federal_might }
-			}
+#			AND = {
+#				PREV = { has_policy_flag = sc_federal_might }
+#				NOT = { has_policy_flag = sc_federal_might }
+#			}
 			AND = {
 				PREV = { has_policy_flag = sc_federal_permanent }
 				NOT = { has_policy_flag = sc_federal_permanent }

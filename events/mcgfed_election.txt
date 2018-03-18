@@ -14,7 +14,7 @@ country_event = {
 		OR = {
 			has_policy_flag = sc_federal_election
 			has_policy_flag = sc_federal_representation
-			has_policy_flag = sc_federal_might
+			#has_policy_flag = sc_federal_might
 			has_policy_flag = sc_federal_permanent
 		}
 		NOT = {
@@ -22,7 +22,7 @@ country_event = {
 				has_country_flag = sc_election_in_progress
 				has_country_flag = sc_president_election
 				has_country_flag = sc_president_representation
-				has_country_flag = sc_president_might
+				#has_country_flag = sc_president_might
 				has_country_flag = sc_president_permanent
 			}
 		}
@@ -102,12 +102,12 @@ country_event = {
 				}
 			}
 		}
-		if = {
-			limit = {
-				has_policy_flag = sc_federal_might
-			}
-			set_country_flag = sc_president_might
-		}
+#		if = {
+#			limit = {
+#				has_policy_flag = sc_federal_might
+#			}
+#			set_country_flag = sc_president_might
+#		}
 	}
 }
 

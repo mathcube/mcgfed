@@ -156,32 +156,32 @@ country_event = {
 		}
 	}
 	
-	option = { #Might
-		name = sc_legislation.11.b
-		custom_tooltip = sc_legislation.11.b.tooltip
-		trigger = {
-			NOT = {
-				has_policy_flag = sc_federal_might
-			}
-		}
-		hidden_effect = {
-			set_country_flag = sc_proposal_leadership_might
-			save_event_target_as = sc_proposing_country
-			random_country = {
-				limit = {
-					has_federation = yes
-					is_federation_leader = yes
-					OR = {
-						is_in_federation_with = ROOT
-						is_country = ROOT
-					}
-				}
-				country_event = {
-					id = sc_legislation.100
-				}
-			}
-		}
-	}
+#	option = { #Might
+#		name = sc_legislation.11.b
+#		custom_tooltip = sc_legislation.11.b.tooltip
+#		trigger = {
+#			NOT = {
+#				has_policy_flag = sc_federal_might
+#			}
+#		}
+#		hidden_effect = {
+#			set_country_flag = sc_proposal_leadership_might
+#			save_event_target_as = sc_proposing_country
+#			random_country = {
+#				limit = {
+#					has_federation = yes
+#					is_federation_leader = yes
+#					OR = {
+#						is_in_federation_with = ROOT
+#						is_country = ROOT
+#					}
+#				}
+#				country_event = {
+#					id = sc_legislation.100
+#				}
+#			}
+#		}
+#	}
 	
 	option = { #Permanent
 		name = sc_legislation.11.c
@@ -1244,14 +1244,14 @@ country_event = {
 			}
 		}
 	}
-	desc = {
-		text = sc_legislation.101.leadership_might
-		trigger = {
-			event_target:sc_proposing_country = {
-				has_country_flag = sc_proposal_leadership_might
-			}
-		}
-	}
+#	desc = {
+#		text = sc_legislation.101.leadership_might
+#		trigger = {
+#			event_target:sc_proposing_country = {
+#				has_country_flag = sc_proposal_leadership_might
+#			}
+#		}
+#	}
 	desc = {
 		text = sc_legislation.101.leadership_permanent
 		trigger = {
@@ -1971,14 +1971,14 @@ country_event = {
 			}
 		}
 	}
-	desc = {
-		text = sc_legislation.201.leadership_might
-		trigger = {
-			event_target:sc_proposing_country = {
-				has_country_flag = sc_proposal_leadership_might
-			}
-		}
-	}
+#	desc = {
+#		text = sc_legislation.201.leadership_might
+#		trigger = {
+#			event_target:sc_proposing_country = {
+#				has_country_flag = sc_proposal_leadership_might
+#			}
+#		}
+#	}
 	desc = {
 		text = sc_legislation.201.leadership_permanent
 		trigger = {
@@ -2270,7 +2270,7 @@ country_event = {
 			remove_country_flag = sc_bribery_3
 			remove_country_flag = sc_proposal_ongoing
 			remove_country_flag = sc_proposal_leadership_election
-			remove_country_flag = sc_proposal_leadership_might
+			#remove_country_flag = sc_proposal_leadership_might
 			remove_country_flag = sc_proposal_leadership_permanent
 			remove_country_flag = sc_proposal_leadership_representation
 			remove_country_flag = sc_proposal_laws_autonomous
@@ -2340,14 +2340,14 @@ country_event = {
 			}
 		}
 	}
-	desc = {
-		text = sc_legislation.301.leadership_might
-		trigger = {
-			event_target:sc_proposing_country = {
-				has_country_flag = sc_proposal_leadership_might
-			}
-		}
-	}
+#	desc = {
+#		text = sc_legislation.301.leadership_might
+#		trigger = {
+#			event_target:sc_proposing_country = {
+#				has_country_flag = sc_proposal_leadership_might
+#			}
+#		}
+#	}
 	desc = {
 		text = sc_legislation.301.leadership_permanent
 		trigger = {
@@ -2636,7 +2636,7 @@ country_event = {
 			remove_country_flag = sc_bribery_3
 			remove_country_flag = sc_proposal_ongoing
 			remove_country_flag = sc_proposal_leadership_election
-			remove_country_flag = sc_proposal_leadership_might
+			#remove_country_flag = sc_proposal_leadership_might
 			remove_country_flag = sc_proposal_leadership_permanent
 			remove_country_flag = sc_proposal_leadership_representation
 			remove_country_flag = sc_proposal_laws_autonomous
