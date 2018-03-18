@@ -19,7 +19,7 @@ country_event = {
 					is_country = ROOT
 				}
 			}
-			set_country_flag = sc_proposal_ongoing
+			set_timed_country_flag = { flag = sc_proposal_ongoing days = 14 } #changed so that if you close window you're not locked out forever
 		}
 	}
 	

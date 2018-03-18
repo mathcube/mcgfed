@@ -1,3 +1,5 @@
+#added check so federal law can prevent
+
 slavery = {
 	potential = {
 		NOT = { has_ethic = "ethic_gestalt_consciousness" }
