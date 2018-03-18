@@ -64,25 +64,25 @@ sc_trigger_opposing_ethics_prev = {
 		}
 		AND = {
 			OR = {
-				has_ethic = ethic_individualist
-				has_ethic = ethic_fanatic_individualist
+				has_ethic = ethic_egalitarian
+				has_ethic = ethic_fanatic_egalitarian
 			}
 			PREV = {
 				OR = {
-					has_ethic = ethic_collectivist
-					has_ethic = ethic_fanatic_collectivist
+					has_ethic = ethic_authoritarian
+					has_ethic = ethic_fanatic_authoritarian
 				}
 			}
 		}
 		AND = {
 			OR = {
-				has_ethic = ethic_collectivist
-				has_ethic = ethic_fanatic_collectivist
+				has_ethic = ethic_authoritarian
+				has_ethic = ethic_fanatic_authoritarian
 			}
 			PREV = {
 				OR = {
-					has_ethic = ethic_individualist
-					has_ethic = ethic_fanatic_individualist
+					has_ethic = ethic_egalitarian
+					has_ethic = ethic_fanatic_egalitarian
 				}
 			}
 		}
@@ -165,25 +165,25 @@ sc_trigger_shares_ethics_prev = {
 		}
 		AND = {
 			OR = {
-				has_ethic = ethic_individualist
-				has_ethic = ethic_fanatic_individualist
+				has_ethic = ethic_egalitarian
+				has_ethic = ethic_fanatic_egalitarian
 			}
 			PREV = {
 				OR = {
-					has_ethic = ethic_individualist
-					has_ethic = ethic_fanatic_individualist
+					has_ethic = ethic_egalitarian
+					has_ethic = ethic_fanatic_egalitarian
 				}
 			}
 		}
 		AND = {
 			OR = {
-				has_ethic = ethic_collectivist
-				has_ethic = ethic_fanatic_collectivist
+				has_ethic = ethic_authoritarian
+				has_ethic = ethic_fanatic_authoritarian
 			}
 			PREV = {
 				OR = {
-					has_ethic = ethic_collectivist
-					has_ethic = ethic_fanatic_collectivist
+					has_ethic = ethic_authoritarian
+					has_ethic = ethic_fanatic_authoritarian
 				}
 			}
 		}
