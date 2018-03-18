@@ -1,0 +1,1 @@
+Federation mod for Stellaris.

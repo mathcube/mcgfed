@@ -1,0 +1,741 @@
+##########################################################################
+# Empire Policies
+# 
+# #####
+#
+# AI:
+# Base AI-weight is 100, if unchanged
+# AI will grab whatever policy-option has the highest weight
+#
+# #####
+# 
+##########################################################################
+
+
+slavery = {
+	potential = {
+		always = yes
+	}
+	
+	option = {
+		name = "slavery_not_allowed"
+		
+		on_enabled = {
+			custom_tooltip = "ALL_POPS_EMANCIPATED"
+
+			hidden_effect = {
+				every_owned_pop = {
+					limit = { is_enslaved = yes }
+					enslave_pop = no
+				}
+			}
+		}
+		
+		policy_flags = {
+			slavery_not_allowed
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+				}
+				NOR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophobe"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.10
+				pop_has_trait = trait_decadent
+			}
+		}
+	}
+	
+	option = {
+		name = "slavery_allowed_regulated_xenos_only"
+		
+		potential = {
+			OR = {
+				num_communications > 0
+				any_owned_pop = {
+					NOT = { is_same_species = root }
+				}
+			}
+		}
+		
+		valid = {
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = "ethic_xenophobe"
+				has_ethic = "ethic_fanatic_xenophobe"
+				has_ethic = "ethic_collectivist"
+				has_ethic = "ethic_fanatic_collectivist"				
+			}		
+		}
+		
+		policy_flags = {
+			slavery_allowed_regulated_xenos_only
+		}
+
+		modifier = {
+			slave_production_output = -0.10
+			slave_food_output = -0.10
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = slaver }
+			}		
+			modifier = {
+				factor = 1.5
+				OR = {
+					has_ethic = "ethic_fanatic_collectivist"
+					has_ethic = "ethic_collectivist"
+				}
+			}
+			modifier = {
+				factor = 1.0
+				OR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophobe"
+				}
+				NOT = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_individualist"
+				NOT = { pop_has_trait = trait_decadent }
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_individualist"
+				NOT = { pop_has_trait = trait_decadent }
+			}
+		}
+
+		on_enabled = {
+			set_policy = {
+				policy = slavery_procreation
+				option = slavery_procreation_allowed
+			}
+		}
+	}
+
+	option = {
+		name = "slavery_allowed_xenos_only"
+		
+		potential = {
+			OR = {
+				num_communications > 0
+ 				any_owned_pop = {
+ 					NOT = { is_same_species = root }
+ 				}
+ 			}
+ 		}
+
+		valid = {
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = "ethic_xenophobe"
+				has_ethic = "ethic_fanatic_xenophobe"
+				has_ethic = "ethic_collectivist"
+				has_ethic = "ethic_fanatic_collectivist"				
+			}
+		}
+		policy_flags = {
+			slavery_allowed_xenos_only
+		}
+		modifier = {}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = slaver }
+			}		
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_fanatic_xenophile"
+					has_ethic = "ethic_xenophile"
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophobe"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_xenophile"
+				NOT = { pop_has_trait = trait_decadent }
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_xenophile"
+				NOT = { pop_has_trait = trait_decadent }
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_collectivist"
+				NOT = { pop_has_trait = trait_decadent }
+				owner = {
+					NOT = { is_same_species = ROOT }
+				}
+			}
+			modifier = {
+				add = -0.05
+				NOR = {
+					pop_has_ethic = "ethic_collectivist" 
+					pop_has_ethic = "ethic_fanatic_collectivist"
+					pop_has_trait = trait_decadent
+				}
+				owner = {
+					NOT = { is_same_species = ROOT }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "slavery_allowed_regulated"
+		
+		valid = {
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = "ethic_collectivist"
+				has_ethic = "ethic_fanatic_collectivist"
+			}			
+		}
+		
+		policy_flags = {
+			slavery_allowed_regulated
+		}
+
+		modifier = {
+			slave_production_output = -0.10
+			slave_food_output = -0.10
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = slaver }
+			}		
+			modifier = {
+				factor = 1.5
+				OR = {
+					has_ethic = "ethic_fanatic_collectivist"
+					has_ethic = "ethic_collectivist"
+				}
+			}
+			modifier = {
+				factor = 1.0
+				OR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophobe"
+				}
+				NOT = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_individualist"
+				NOT = { pop_has_trait = trait_decadent }
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_individualist"
+				NOT = { pop_has_trait = trait_decadent }
+			}
+		}
+
+		on_enabled = {
+			set_policy = {
+				policy = slavery_procreation
+				option = slavery_procreation_allowed
+			}
+		}
+	}
+	
+	option = {
+		name = "slavery_allowed_all"
+		
+		valid = {
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = "ethic_collectivist"
+				has_ethic = "ethic_fanatic_collectivist"
+			}		
+		}
+		
+		policy_flags = {
+			slavery_allowed_all
+		}
+		modifier = {}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = slaver }
+			}		
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_fanatic_collectivist"
+					has_ethic = "ethic_collectivist"
+				}
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophobe"
+				}
+				NOR = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_individualist"
+				NOT = { pop_has_trait = trait_decadent }
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_individualist"
+				NOT = { pop_has_trait = trait_decadent }
+			}
+		}
+	}
+}
+
+purge = {
+
+	potential = {
+		always = yes
+	}
+	
+	option = {
+		name = "purge_not_allowed"
+		
+		on_enabled = {
+			# custom_tooltip = "policy_purge_allowed_effect_disable"
+			every_owned_pop = {
+				limit = { is_being_purged = yes }
+				purge = no
+			}
+		}
+		
+		policy_flags = {
+			purge_not_allowed
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+					has_ethic = "ethic_fanatic_pacifist"
+					has_ethic = "ethic_pacifist"
+				}
+			}		
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+					has_ethic = "ethic_fanatic_pacifist"
+					has_ethic = "ethic_pacifist"
+				}
+				OR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophobe"
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "purge_allowed_xenos_only"
+		
+		policy_flags = {
+			purge_allowed_xenos_only
+		}
+		modifier = {}
+		
+		potential = {
+			OR = {
+				num_communications > 0
+ 				any_owned_pop = {
+ 					NOT = { is_same_species = root }
+ 				}
+ 			}
+ 		}
+		
+		valid = {	
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_low }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = "ethic_xenophobe"
+				has_ethic = "ethic_fanatic_xenophobe"
+				has_ethic = "ethic_collectivist"
+				has_ethic = "ethic_fanatic_collectivist"
+			}
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = purger }
+			}			
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_fanatic_individualist"
+					has_ethic = "ethic_individualist"
+					has_ethic = "ethic_fanatic_pacifist"
+					has_ethic = "ethic_pacifist"
+					has_ethic = "ethic_fanatic_xenophile"
+					has_ethic = "ethic_xenophile"
+				}
+				NOT = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_xenophile"
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_xenophile"
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "purge_allowed_all"
+		
+		potential = {
+		}
+		valid = {
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_low }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = "ethic_collectivist"
+				has_ethic = "ethic_fanatic_collectivist"
+			}
+		}
+		policy_flags = {
+			purge_allowed_all
+		}
+		modifier = {}
+		
+		AI_weight = {
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_collectivist"
+					has_ethic = "ethic_fanatic_collectivist"
+				}
+			}
+			modifier = {
+				factor = 1.5
+				OR = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				NOR = {
+					pop_has_ethic = "ethic_collectivist"
+					pop_has_ethic = "ethic_fanatic_collectivist"
+				}
+			}
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_individualist"
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_individualist"
+			}			
+		}
+	}
+}
+
+migration = {
+
+	potential = {
+		always = yes
+	}
+	
+	option = {
+		name = "migration_not_allowed"
+		
+		policy_flags = {
+			migration_not_allowed
+		}
+		
+		on_enabled = {
+			# custom_tooltip = "policy_allow_slavery_effect_disable"
+		}
+		
+		valid = {
+			NOT = { has_policy_flag = sc_federal_open_low }
+			NOT = { has_policy_flag = sc_federal_open_high }
+			NOT = {
+				has_ethic = "ethic_fanatic_individualist"
+			}
+			grants_migration_access = no
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 10
+				NOT = { is_country_type = default }
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					has_ethic = "ethic_collectivist"
+					has_ethic = "ethic_fanatic_collectivist"
+				}
+			}		
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_individualist"
+					has_ethic = "ethic_fanatic_individualist"
+				}
+			}
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_individualist"
+			}
+			modifier = {
+				add = -0.10
+				pop_has_ethic = "ethic_fanatic_individualist"
+			}			
+		}
+	}
+	
+	option = {
+		name = "migration_allowed_primary_only"
+		
+		policy_flags = {
+			migration_allowed_primary_only
+		}
+		modifier = {}
+		
+		valid = {
+			NOT = { has_policy_flag = sc_federal_open_low }
+			NOT = { has_policy_flag = sc_federal_open_high }
+			grants_migration_access = no
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = no
+				OR = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+				}
+			}
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = multispecies }
+			}			
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_xenophile"
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+			modifier = {
+				add = -0.10
+				pop_has_ethic = "ethic_fanatic_xenophile"
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+			modifier = {
+				add = -0.05
+				NOT = {
+					pop_has_ethic = "ethic_xenophobe"
+					pop_has_ethic = "ethic_fanatic_xenophobe"				
+				}
+				pop_has_ethic = "ethic_individualist"
+				owner = {
+					NOT = {
+						is_same_species = ROOT
+					}
+				}
+			}
+			modifier = {
+				add = -0.10
+				pop_has_ethic = "ethic_fanatic_individualist"
+				NOR = {
+					pop_has_ethic = "ethic_xenophobe"
+					pop_has_ethic = "ethic_fanatic_xenophobe"				
+				}				
+				owner = {
+					NOT = {
+						is_same_species = ROOT
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "migration_allowed_all"
+		
+		policy_flags = {
+			migration_allowed_all
+		}
+		modifier = {}
+		
+		valid = {
+			OR = {
+				NOT = {
+					has_ethic = "ethic_fanatic_xenophobe"
+				}
+				has_policy_flag = sc_federal_open_low
+				has_policy_flag = sc_federal_open_high
+			}
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 2
+				OR = {
+					has_ethic = "ethic_individualist"
+					has_ethic = "ethic_fanatic_individualist"
+				}
+			}
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = no
+				OR = {
+					has_ethic = "ethic_xenophile"
+					has_ethic = "ethic_fanatic_xenophile"
+				}
+			}
+			modifier = {
+				factor = 10
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = multispecies
+			}			
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+				}
+			}				
+		}
+		
+		pop_happiness = {
+			base = 0
+			modifier = {
+				add = -0.05
+				pop_has_ethic = "ethic_xenophobe"
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+			modifier = {
+				add = -0.1
+				pop_has_ethic = "ethic_fanatic_xenophobe"
+				owner = {
+					is_same_species = ROOT
+				}
+			}
+		}
+	}
+}
