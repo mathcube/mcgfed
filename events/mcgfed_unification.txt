@@ -1,0 +1,82 @@
+namespace = mcgfed_unification
+
+country_event = {
+	id = mcgfed_unification.1
+	title = mcgfed_unification.1.name
+	desc = mcgfed_unification.1.desc
+	picture = GFX_evt_galactic_senate
+
+	is_triggered_only = yes
+
+	immediate = {
+		every_country = {
+			limit = {
+				OR = {
+					is_in_federation_with = ROOT
+					is_country = ROOT
+				}
+			}
+			set_timed_country_flag = { flag = mcgfed_unification_considered days = 14 }
+		}
+	}
+	
+	option = { #let us join as one
+		name = mcgfed_unification.1.a
+		custom_tooltip = mcgfed_unification.1.a.tooltip
+		hidden_effect = {
+			set_country_flag = mcgfed_proposing_unification
+			save_event_target_as = mcgfed_unifier
+			country_event = { id = mcgfed_unification.2 }
+		}
+	}
+	
+	option = { #Change Mind
+		name = mcgfed_unification.exit
+		custom_tooltip = mcgfed_unification.exit.tooltip
+	}
+}
+
+country_event = {
+	id = mcgfed_unification.2
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		every_country = {
+			limit = {
+				is_in_federation_with = ROOT
+				NOT = { has_country_flag = mcgfed_proposing_unification }
+			}
+			set_country_flag = mcgfed_asked_to_unify
+			country_event = { id = mcgfed_unification.10 }
+		}
+	}
+}
+
+country_event = {
+	id = mcgfed_unification.10
+	title = mcgfed_unification.10.name
+	desc = mcgfed_unification.10.desc
+	picture = GFX_evt_galactic_senate
+
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = mcgfed_asked_to_unify
+		has_federation = yes
+	}
+	option = { #Yes
+		name = mcgfed_unification.10.a
+		custom_tooltip = mcgfed_unification.10.a.tooltip
+		hidden_effect = {
+			federal_integration = yes
+		}
+	}
+	option = { #No
+		name = mcgfed_unification.10.b
+		custom_tooltip = mcgfed_unification.10.b.tooltip
+		ai_chance = {
+			factor = 0
+		}
+	}
+	
+}

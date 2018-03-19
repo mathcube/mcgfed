@@ -1,0 +1,16 @@
+federal_integration = {
+	remove_country_flag = mcgfed_asked_to_unify
+	every_owned_fleet = {
+		set_owner = event_target:mcgfed_unifier
+		set_controller = event_target:mcgfed_unifier
+	}
+	every_owned_planet = {
+		set_owner = event_target:mcgfed_unifier
+	}
+	every_system_within_border = {
+		limit = { exists = starbase }
+		starbase = { set_owner = event_target:mcgfed_unifier }
+	}
+
+
+}
