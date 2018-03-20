@@ -1,4 +1,17 @@
 country_edict = {
+	name = "mcgfed_test_modifiers"
+	length = 14
+	cost = { }
+	
+	effect = {
+		add_modifier = {
+			modifier = "mcgfed_home"
+			days = 14
+		}
+	}
+}
+
+country_edict = {
 	name = "mcgfed_form_union"
 	length = 14
 	cost = { influence = 1000 }

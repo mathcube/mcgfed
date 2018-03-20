@@ -1,0 +1,29 @@
+#home for all species
+mcgfed_home = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	pop_environment_tolerance = 0.15 #more habitability
+	planet_building_cost_mult = 0.2 #more expensive to build
+}
+
+#A unified Starfleet
+mcgfed_starfleet = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	starbase_shipyard_build_cost_mult = 0.1 #multi-ethnic starfleet has higher needs
+}
+
+#uniform code of regulations
+mcgfed_regulations = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	country_trade_attractiveness = 0.1 #standardized regulations = more trade
+	pop_government_ethic_attraction = -0.1 #more commerce = more exposure to other cultures
+}
+
+#Seat of the Federation
+mcgfed_capital = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	country_resource_influence_add = 1 #offsets the federation malice
+}
