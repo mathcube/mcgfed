@@ -1,0 +1,23 @@
+country_edict = {
+	name = "mcgfed_form_union"
+	length = 14
+	cost = { influence = 1000 }
+	
+	modifier = {
+		
+	}
+
+	potential = {
+		has_federation = yes
+	}
+	
+	effect = {
+		hidden_effect = {
+			country_event = { id = mcgfed_unification.1 }
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
