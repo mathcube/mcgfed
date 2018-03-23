@@ -27,3 +27,13 @@ mcgfed_capital = {
 	icon_frame = 1
 	country_resource_influence_add = 1 #offsets the federation malice
 }
+
+#The Academy
+mcgfed_academy = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_surface.dds"
+	icon_frame = 1
+	country_leader_cap = 2 #talent from all corners
+	country_leader_pool_size = 1
+	leader_skill_levels = 1
+	all_technology_research_speed = 0.05 #brainpower
+}
