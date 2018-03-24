@@ -1,789 +1,173 @@
-##########################################################################
-# Empire Policies
-# 
-# #####
-#
-# AI:
-# Base AI-weight is 100, if unchanged
-# AI will grab whatever policy-option has the highest weight
-#
-# #####
-# 
-##########################################################################
+#added check so federal law can prevent
 
-###Level 1 - Independent Laws###
-
-sc_federal_leadership = {
-
+slavery = {
 	potential = {
-		has_federation = yes
-	}
-
-	allow = {
-		always = no
+		NOT = { has_ethic = "ethic_gestalt_consciousness" }
 	}
 	
 	option = {
-		name = "sc_federal_election"
+		name = "slavery_not_allowed"
 		
 		policy_flags = {
-			sc_federal_election
+			slavery_not_allowed
 		}
+	}
+	
+	option = {
+		name = "slavery_allowed"
 		
 		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				OR = {
-					has_policy_flag = sc_federal_election
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_election
-							has_policy_flag = sc_federal_representation
-							#has_policy_flag = sc_federal_might
-							has_policy_flag = sc_federal_permanent
-						}
-					}
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = ethic_authoritarian
+				has_ethic = ethic_fanatic_authoritarian
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+		
+		policy_flags = {
+			slavery_allowed
+		}
+		modifier = {}
+		
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOR = { 
+					has_ai_personality_behaviour = slaver 
+					has_ai_personality_behaviour = caste_system
 				}
 			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_representation"
-		
-		policy_flags = {
-			sc_federal_representation
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_representation	
-			}
-		}
-	}
-	
-#	option = {
-#		name = "sc_federal_might"
-#		
-#		policy_flags = {
-#			sc_federal_might
-#		}
-#		
-#		valid = {
-#			custom_tooltip = {
-#				text = "SC_MUST_BE_VOTED_ON"
-#				has_policy_flag = sc_federal_might	
-#			}
-#		}
-#	}
-	
-	option = {
-		name = "sc_federal_permanent"
-		
-		policy_flags = {
-			sc_federal_permanent
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_permanent
-			}
-		}
-	}
-	
-}
-
-sc_federal_legislation = {
-
-	potential = {
-		has_federation = yes
-	}
-
-	allow = {
-		always = no
-	}
-	
-	option = {
-		name = "sc_federal_autonomous_laws"
-		
-		policy_flags = {
-			sc_federal_autonomous_laws
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				OR = {
-					has_policy_flag = sc_federal_autonomous_laws
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_autonomous_laws
-							has_policy_flag = sc_federal_federal_laws
-							has_policy_flag = sc_federal_unified_laws
-						}
-					}
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = no
+				NOR = {
+					has_ethic = ethic_authoritarian
+					has_ethic = ethic_fanatic_authoritarian
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
 				}
 			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_federal_laws"
-		
-		policy_flags = {
-			sc_federal_federal_laws
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_federal_laws	
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_unified_laws"
-		
-		policy_flags = {
-			sc_federal_unified_laws
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_unified_laws
-			}
-		}
-	}
-	
-}
-
-sc_federal_legislative_process = {
-
-	potential = {
-		has_federation = yes
-	}
-
-	allow = {
-		always = no
-	}
-	
-	option = {
-		name = "sc_federal_consensus"
-		
-		policy_flags = {
-			sc_federal_consensus
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				OR = {
-					has_policy_flag = sc_federal_consensus
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_consensus
-							has_policy_flag = sc_federal_majority
-							has_policy_flag = sc_federal_discretionary
-						}
-					}
+			# special case for harmonious collectives
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = no
+				is_ai = yes
+				NOR = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_militarist"
+					has_ethic = "ethic_fanatic_militarist"	
 				}
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_majority"
-		
-		policy_flags = {
-			sc_federal_majority
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_majority	
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_discretionary"
-		
-		policy_flags = {
-			sc_federal_discretionary
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_discretionary
-			}
-		}
-	}
-	
-}
-
-###Level 2 - Federal Laws###
-
-sc_federal_budget = {
-
-	potential = {
-		has_federation = yes
-		OR = {
-			has_policy_flag = sc_federal_federal_laws
-			has_policy_flag = sc_federal_unified_laws
-		}
-	}
-
-	allow = {
-		always = no
-	}
-	
-	option = {
-		name = "sc_federal_budget_none"
-		
-		policy_flags = {
-			sc_federal_budget_none
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
 				OR = {
-					has_policy_flag = sc_federal_budget_none
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_budget_none
-							has_policy_flag = sc_federal_budget_minimal
-							has_policy_flag = sc_federal_budget_low
-							has_policy_flag = sc_federal_budget_acceptable
-							has_policy_flag = sc_federal_budget_high
-							has_policy_flag = sc_federal_budget_extreme
-						}
-					}
+					has_ethic = "ethic_pacifist"
+					has_ethic = "ethic_fanatic_pacifist"
+					has_ethic = "ethic_xenophile"
+					has_ethic = "ethic_fanatic_xenophile"
 				}
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_budget_minimal"
-		
-		policy_flags = {
-			sc_federal_budget_minimal
-		}
-		
-		modifier = {
-			tile_resource_energy_mult = -0.04
-			tile_resource_minerals_mult = -0.04
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_budget_minimal	
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_budget_low"
-		
-		policy_flags = {
-			sc_federal_budget_low
-		}
-		
-		modifier = {
-			tile_resource_energy_mult = -0.08
-			tile_resource_minerals_mult = -0.08
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_budget_low
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_budget_acceptable"
-		
-		policy_flags = {
-			sc_federal_budget_acceptable
-		}
-		
-		modifier = {
-			tile_resource_energy_mult = -0.12
-			tile_resource_minerals_mult = -0.12
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_budget_acceptable
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_budget_high"
-		
-		policy_flags = {
-			sc_federal_budget_high
-		}
-		
-		modifier = {
-			tile_resource_energy_mult = -0.16
-			tile_resource_minerals_mult = -0.16
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_budget_high
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_budget_extreme"
-		
-		policy_flags = {
-			sc_federal_budget_extreme
-		}
-		
-		modifier = {
-			tile_resource_energy_mult = -0.2
-			tile_resource_minerals_mult = -0.2
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_budget_extreme
-			}
-		}
-	}
-	
-}
-
-sc_federal_research = {
-
-	potential = {
-		has_federation = yes
-		OR = {
-			has_policy_flag = sc_federal_federal_laws
-			has_policy_flag = sc_federal_unified_laws
-		}
-	}
-
-	allow = {
-		always = no
-	}
-	
-	option = {
-		name = "sc_federal_research_none"
-		
-		policy_flags = {
-			sc_federal_research_none
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
 				OR = {
-					has_policy_flag = sc_federal_research_none
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_research_none
-							has_policy_flag = sc_federal_research_low
-							has_policy_flag = sc_federal_research_high
-						}
-					}
+					has_ethic = "ethic_authoritarian"
+					has_ethic = "ethic_fanatic_authoritarian"
 				}
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_research_low"
-		
-		policy_flags = {
-			sc_federal_research_low
-		}
-		
-		modifier = {
-			all_technology_research_speed = 0.05
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_research_low
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_research_high"
-		
-		policy_flags = {
-			sc_federal_research_high
-		}
-		
-		modifier = {
-			all_technology_research_speed = 0.1
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_research_high
-			}
+				NOR = {
+					has_valid_civic = "civic_slaver_guilds"
+					has_trait = "trait_decadent"
+				}				
+			}			
 		}
 	}
 }
 
-sc_federal_health = {
-
+purge = {
 	potential = {
-		has_federation = yes
-		OR = {
-			has_policy_flag = sc_federal_federal_laws
-			has_policy_flag = sc_federal_unified_laws
-		}
-	}
-
-	allow = {
-		always = no
+		NOT = { has_ethic = "ethic_gestalt_consciousness" }
 	}
 	
 	option = {
-		name = "sc_federal_health_none"
-		
-		policy_flags = {
-			sc_federal_health_none
-		}
+		name = "purge_not_allowed"
 		
 		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				OR = {
-					has_policy_flag = sc_federal_health_none
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_health_none
-							has_policy_flag = sc_federal_health_low
-							has_policy_flag = sc_federal_health_high
-						}
-					}
-				}
-			}
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+			NOT = { has_valid_civic = "civic_fanatic_purifiers" }		
+		}
+		
+		policy_flags = {
+			purge_not_allowed
 		}
 	}
 	
 	option = {
-		name = "sc_federal_health_low"
+		name = "purge_displacement_only"
 		
 		policy_flags = {
-			sc_federal_health_low
+			purge_displacement_only
 		}
-		
-		modifier = {
-			pop_environment_tolerance = 0.05
-			pop_growth_speed = 0.05
-		}
+
+		modifier = {}
 		
 		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_health_low
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_health_high"
-		
-		policy_flags = {
-			sc_federal_health_high
-		}
-		
-		modifier = {
-			pop_environment_tolerance = 0.1
-			pop_growth_speed = 0.1
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_health_high
-			}
-		}
-	}
-}
-
-###Level 3 - Unified Laws###
-
-sc_federal_open = {
-
-	potential = {
-		has_federation = yes
-		has_policy_flag = sc_federal_unified_laws
-	}
-
-	allow = {
-		always = no
-	}
-	
-	option = {
-		name = "sc_federal_open_none"
-		
-		policy_flags = {
-			sc_federal_open_none
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				OR = {
-					has_policy_flag = sc_federal_open_none
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_open_none
-							has_policy_flag = sc_federal_open_low
-							has_policy_flag = sc_federal_open_high
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_open_low"
-		
-		policy_flags = {
-			sc_federal_open_low
-		}
-		
-		modifier = {
-			country_trust_growth = 0.25
-			pop_ethics_shift_speed_mult = 0.05
-			pop_ethic_xenophobe_attraction_mult = -0.1
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_open_low
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_open_high"
-		
-		policy_flags = {
-			sc_federal_open_high
-		}
-		
-		modifier = {
-			country_trust_growth = 0.5
-			pop_ethics_shift_speed_mult = 0.1
-			pop_ethic_xenophobe_attraction_mult = -0.2
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				has_policy_flag = sc_federal_open_high
-			}
-		}
-	}
-}
-
-sc_federal_rights = {
-
-	potential = {
-		has_federation = yes
-		has_policy_flag = sc_federal_unified_laws
-	}
-
-	allow = {
-		always = no
-	}
-	
-	option = {
-		name = "sc_federal_rights_none"
-		
-		policy_flags = {
-			sc_federal_rights_none
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
-				OR = {
-					has_policy_flag = sc_federal_rights_none
-					NOT = {
-						OR = {
-							has_policy_flag = sc_federal_rights_none
-							has_policy_flag = sc_federal_rights_low
-							has_policy_flag = sc_federal_rights_high
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_rights_low"
-		
-		policy_flags = {
-			sc_federal_rights_low
-		}
-		
-		modifier = {
-			faction_influence_mult = 0.05
-			pop_happiness = 0.05
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
+			NOR = { 
+				is_subject_type = signatory
+				has_ethic = ethic_gestalt_consciousness
 				has_policy_flag = sc_federal_rights_low
-			}
-		}
-	}
-	
-	option = {
-		name = "sc_federal_rights_high"
-		
-		policy_flags = {
-			sc_federal_rights_high
-		}
-		
-		modifier = {
-			faction_influence_mult = 0.1
-			pop_happiness = 0.1
-		}
-		
-		valid = {
-			custom_tooltip = {
-				text = "SC_MUST_BE_VOTED_ON"
 				has_policy_flag = sc_federal_rights_high
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
 			}
-		}
-	}
-}
-
-###Proposal and Decisions###
-
-sc_federal_propose_law = {
-
-	potential = {
-		has_federation = yes
-		OR = {
-			is_federation_leader = yes
-			NOT = {
-				has_policy_flag = sc_federal_discretionary
-			}
-		}
-	}
-	
-	allow = {
-		NOT = {
-			has_country_flag = sc_proposal_ongoing
-			has_country_flag = sc_challenge_ongoing
-		}
-	}
-	
-	option = {
-		name = "sc_federal_propose_no"
-		policy_flags = {
-			sc_federal_propose_no
-		}
-	}
-	
-	option = {
-		name = "sc_federal_propose_yes"
-		
-		policy_flags = {
-			sc_federal_propose_yes
-		}
-		
-		on_enabled = {
-			country_event = {
-					id = sc_legislation.1
-			}
-			set_policy = {
-				policy = sc_federal_propose_law
-				option = sc_federal_propose_no
-				cooldown = yes
-			}
+			NOT = { has_valid_civic = "civic_fanatic_purifiers" }
 		}
 		
 		AI_weight = {
+			factor = 5
 			modifier = {
 				factor = 0
-				is_ai = yes
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = multispecies
+			}
+		}
+	}	
+	
+	option = {
+		name = "purge_allowed"
+		
+		policy_flags = {
+			purge_allowed
+		}
+		modifier = {}
+		
+		valid = {		
+			NOT = { is_subject_type = signatory }
+			NOT = { has_policy_flag = sc_federal_rights_low }
+			NOT = { has_policy_flag = sc_federal_rights_high }
+			OR = {
+				has_ethic = ethic_gestalt_consciousness
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}			
+		}
+		
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 50
+				has_ethic = ethic_gestalt_consciousness
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = ethic_pacifist
+					has_ethic = ethic_fanatic_pacifist
+				}
+			}
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOT = { has_ai_personality_behaviour = purger }
 			}
 		}
 	}
 }
-
-#sc_federal_challenge = {
-#
-#	potential = {
-#		always = no
-#		has_federation = yes
-#		has_policy_flag = sc_federal_might
-#	}
-#	
-#	allow = {
-#		NOT = {
-#			has_country_flag = sc_proposal_ongoing
-#			has_country_flag = sc_challenge_ongoing
-#		}
-#	}
-#	
-#	option = {
-#		name = "sc_federal_challenge_no"
-#		policy_flags = {
-#			sc_federal_challenge_no
-#		}
-#	}
-#	
-#	option = {
-#		name = "sc_federal_challenge_yes"
-#		
-#		policy_flags = {
-#			sc_federal_challenge_yes
-#		}
-#		
-#		on_enabled = {
-#			country_event = {
-#					id = sc_election.200
-#			}
-#			set_policy = {
-#				policy = sc_federal_challenge
-#				option = sc_federal_challenge_no
-#				cooldown = yes
-#			}
-#		}
-#		
-#		AI_weight = {
-#			modifier = {
-#				factor = 0
-#				is_ai = yes
-#			}
-#		}
-#	}
-#}
