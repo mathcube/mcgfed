@@ -1,4 +1,242 @@
+####CLASSIC POLICIES####
 #added check so federal law can prevent
+
+#affected by The Rights of Species
+interference = {
+
+	potential = {
+		has_met_primitives = yes
+	}
+	
+	option = {
+		name = "interference_passive"
+		
+		policy_flags = {
+			interference_passive
+		}
+		
+		on_enabled = {
+			# custom_tooltip = "policy_allow_slavery_effect_disable"
+		}
+		
+		valid = {
+			OR = {
+				is_subject_type = signatory
+				NOR = {
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_valid_civic = "civic_fanatic_purifiers"
+					has_valid_civic = "civic_hive_devouring_swarm"
+					has_valid_civic = "civic_machine_terminator"
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "interference_active"
+		
+		policy_flags = {
+			interference_active
+		}
+		modifier = {}
+		
+		valid = {
+			NOR = {
+				is_subject_type = signatory				
+				has_valid_civic = "civic_fanatic_purifiers"
+				has_valid_civic = "civic_hive_devouring_swarm"
+			}
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = yes
+				OR = {
+					has_ai_personality_behaviour = infiltrator
+					has_ai_personality_behaviour = dominator
+				}
+			}
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOR = {
+					has_ai_personality_behaviour = infiltrator
+					has_ai_personality_behaviour = dominator
+				}
+			}
+		}
+	}
+	option = {
+		name = "interference_full"
+		
+		potential = {
+		}
+		valid = {
+			NOT = { is_subject_type = signatory }
+			NOR = {
+				has_ethic = "ethic_pacifist"
+				has_ethic = "ethic_fanatic_pacifist"
+				has_policy_flag = mcgfed_species_rights_yes
+			}
+		}
+		policy_flags = {
+			interference_full
+		}
+		modifier = {}
+		AI_weight = {
+			modifier = {
+				factor = 3
+				has_valid_ai_personality = yes
+				OR = {
+					has_ai_personality_behaviour = infiltrator
+					has_ai_personality_behaviour = dominator
+				}
+			}
+			modifier = {
+				factor = 0
+				has_valid_ai_personality = yes
+				NOR = {
+					has_ai_personality_behaviour = infiltrator
+					has_ai_personality_behaviour = dominator
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_pacifist"
+					has_ethic = "ethic_fanatic_pacifist"
+				}
+			}
+		}
+	}
+}
+
+appropriation = {
+	potential = {
+		has_comms_with_alien_empire = yes
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+	}
+	
+	option = {
+		name = "appropriation_not_allowed"
+		
+		policy_flags = {
+			appropriation_not_allowed
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 10
+				has_ai_personality_behaviour = multispecies
+			}
+		}
+	}
+	
+	option = {
+		name = "appropriation_allowed"
+		
+		valid = {
+			NOT = { has_policy_flag = mcgfed_species_rights_yes }
+		}
+		
+		policy_flags = {
+			appropriation_allowed
+		}
+		modifier = {}
+		
+		AI_weight = {
+			modifier = {
+				factor = 10
+				NOT = { has_ai_personality_behaviour = multispecies }
+			}
+		}
+	}
+}
+
+refugees = {
+	potential = {
+		has_encountered_other_species = yes
+		is_country_type = default
+		OR = {
+			NOT = { has_ethic = "ethic_gestalt_consciousness" }
+			has_valid_civic = civic_machine_servitor
+		}	
+	}
+	
+	option = {
+		name = "refugees_not_allowed"
+		
+		valid = {
+			NOR = { 
+				has_ethic = "ethic_xenophile" 
+				has_ethic = "ethic_fanatic_xenophile" 
+				has_policy_flag = mcgfed_species_rights_yes
+			}
+		}
+		
+		policy_flags = {
+			refugees_not_allowed
+		}	
+	}
+	
+	option = {
+		name = "refugees_only_citizens"
+		
+		potential = {
+			NOT = { has_ethic = "ethic_gestalt_consciousness" }
+		}
+		
+		policy_flags = {
+			refugees_only_citizens
+		}
+		
+		valid = {
+			NOR = {
+				has_authority = auth_hive_mind
+				has_policy_flag = mcgfed_species_rights_yes
+			}
+		}
+		
+		AI_weight = {
+			factor = 5
+		}
+	}
+	
+	option = {
+		name = "refugees_allowed"
+		
+		policy_flags = {
+			refugees_allowed
+		}
+		
+		valid = {
+			OR = {
+				has_policy_flag = mcgfed_species_rights_yes
+				NOR = { 
+					has_ethic = "ethic_xenophobe" 
+					has_ethic = "ethic_fanatic_xenophobe" 
+				}
+			}
+		}
+		
+		AI_weight = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOR = {
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+					has_valid_civic = civic_machine_servitor
+					AND = {
+						has_valid_ai_personality = yes
+						NOT = { has_ai_personality_behaviour = multispecies }					
+					}
+				}
+			}
+		}
+	}
+}
 
 slavery = {
 	potential = {
@@ -18,7 +256,7 @@ slavery = {
 		
 		valid = {
 			NOT = { is_subject_type = signatory }
-			NOT = { has_policy_flag = sc_federal_rights_high }
+			NOT = { has_policy_flag = mcgfed_species_rights_yes }
 			OR = {
 				has_ethic = ethic_authoritarian
 				has_ethic = ethic_fanatic_authoritarian
@@ -113,8 +351,7 @@ purge = {
 			NOR = { 
 				is_subject_type = signatory
 				has_ethic = ethic_gestalt_consciousness
-				has_policy_flag = sc_federal_rights_low
-				has_policy_flag = sc_federal_rights_high
+				has_policy_flag = mcgfed_species_rights_yes
 				has_ethic = ethic_xenophile
 				has_ethic = ethic_fanatic_xenophile
 			}
@@ -141,8 +378,7 @@ purge = {
 		
 		valid = {		
 			NOT = { is_subject_type = signatory }
-			NOT = { has_policy_flag = sc_federal_rights_low }
-			NOT = { has_policy_flag = sc_federal_rights_high }
+			NOT = { has_policy_flag = mcgfed_species_rights_yes }
 			OR = {
 				has_ethic = ethic_gestalt_consciousness
 				has_ethic = ethic_xenophobe
@@ -171,3 +407,277 @@ purge = {
 		}
 	}
 }
+
+#affected by The Rights of AI
+
+artificial_intelligence_policy = {
+
+	potential = {	
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		can_set_ai_policy = yes
+	}
+	
+	option = {
+		name = "ai_outlawed"
+
+		valid = {
+			NOR = {
+				has_ethic = "ethic_materialist"
+				has_ethic = "ethic_fanatic_materialist"
+				has_policy_flag = mcgfed_robot_rights_yes
+			}			
+		}
+		
+		policy_flags = {
+			ai_outlawed
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_materialist"
+					has_ethic = "ethic_fanatic_materialist"
+				}
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					has_ethic = "ethic_spiritualist"
+					has_ethic = "ethic_fanatic_spiritualist"
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "ai_servitude"
+
+		valid = {
+			NOT = { has_policy_flag = mcgfed_robot_rights_yes }
+		}
+		
+		policy_flags = {
+			ai_servitude
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 5
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = robot_exploiter
+			}	
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = robot_liberator
+			}				
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_spiritualist"
+					has_ethic = "ethic_fanatic_spiritualist"
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "ai_full_rights"
+
+		valid = {
+			OR = {
+				has_policy_flag = mcgfed_robot_rights_yes
+				NOR = {
+					has_ethic = "ethic_spiritualist"
+					has_ethic = "ethic_fanatic_spiritualist"
+				}
+			}
+			NOT = { has_policy_flag = robots_outlawed }
+		}
+		
+		policy_flags = {
+			ai_full_rights
+		}
+		
+		modifier = {}
+		
+		AI_weight = {
+			modifier = {
+				factor = 5
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = robot_liberator
+			}		
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_spiritualist"
+					has_ethic = "ethic_fanatic_spiritualist"
+				}
+			}
+		}
+	}
+}
+
+robot_pop_policy = {
+
+	potential = {	
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		can_set_robot_policy = yes
+	}
+	
+	option = {
+		name = "robot_pops_outlawed"
+
+		valid = {
+			NOR = {
+				has_ethic = "ethic_materialist"
+				has_ethic = "ethic_fanatic_materialist"
+			}				
+			NOT = { has_policy_flag = ai_full_rights }
+		}
+		
+		policy_flags = {
+			robots_outlawed
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 0
+				OR = {
+					has_ethic = "ethic_materialist"
+					has_ethic = "ethic_fanatic_materialist"
+				}
+			}
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = yes
+				NOR = {
+					has_ai_personality_behaviour = robot_exploiter
+					has_ai_personality_behaviour = robot_liberator
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "robot_pops_allowed"
+		
+		policy_flags = {
+			robots_allowed
+		}
+		
+		AI_weight = {
+			modifier = {
+				factor = 5
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = robot_exploiter
+			}	
+			modifier = {
+				factor = 2
+				has_valid_ai_personality = yes
+				has_ai_personality_behaviour = robot_liberator
+			}				
+		}
+	}
+}
+
+####NEW POLICIES####
+####synchronizing policies####
+#A declaration on the rights of species
+mcgfed_species_rights = {
+
+	potential = {
+		has_federation = yes
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+	}
+
+	allow = {
+		always = no
+	}
+	
+	option = {
+		name = "mcgfed_species_rights_no"
+		
+		policy_flags = {
+			mcgfed_species_rights_no
+		}
+		
+		valid = {
+			OR = {
+				has_policy_flag = mcgfed_species_rights_no
+				NOT = {
+					OR = {
+						has_policy_flag = mcgfed_species_rights_no
+						has_policy_flag = mcgfed_species_rights_yes
+					}
+				}
+			}
+			
+		}
+	}
+	
+	option = {
+		name = "mcgfed_species_rights_yes"
+		
+		policy_flags = {
+			mcgfed_species_rights_yes
+		}
+		
+		modifier = {
+			pop_happiness = 0.05
+		}
+		
+		valid = {
+			has_policy_flag = mcgfed_species_rights_yes
+		}
+	}
+}
+
+#declaration on rights of AI
+mcgfed_robot_rights = {
+
+	potential = {
+		has_federation = yes
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+	}
+
+	allow = {
+		always = no
+	}
+	
+	option = {
+		name = "mcgfed_robot_rights_no"
+		
+		policy_flags = {
+			mcgfed_robot_rights_no
+		}
+		
+		valid = {
+			OR = {
+				has_policy_flag = mcgfed_robot_rights_no
+				NOT = {
+					OR = {
+						has_policy_flag = mcgfed_robot_rights_no
+						has_policy_flag = mcgfed_robot_rights_yes
+					}
+				}
+			}
+			
+		}
+	}
+	
+	option = {
+		name = "mcgfed_robot_rights_yes"
+		
+		policy_flags = {
+			mcgfed_robot_rights_yes
+		}
+		
+		valid = {
+			has_policy_flag = mcgfed_robot_rights_yes
+		}
+	}
+}
+
+####bonus policies####
